@@ -5,20 +5,20 @@ Implementation checklist for **Implement Style the Hello World interface**. Each
 - [ ] 1. Implement Style the Hello World interface
   - _Story:_ As a visitor, I want the Hello World page to have basic readable styling, so that the message is clear and pleasant to view.
 
-- [ ] 1.1 Create a dedicated stylesheet for the existing Hello World page and link it from the existing HTML document without changing the page content.
-  - Acceptance: WHEN a visitor loads the Hello World page THEN the existing message SHALL be displayed with readable typography, sufficient spacing, and clear visual hierarchy.
+- [ ] 1.1 Inspect the existing Hello World HTML structure and identify the page container and message elements without changing their text or semantic meaning.
+  - Acceptance: WHEN a visitor opens the Hello World page THEN the existing Hello World message SHALL be displayed with readable typography, spacing, and contrast.
   - _Requirements: 1_
-- [ ] 1.2 Define a readable system font stack, neutral page background, high-contrast text color, and consistent spacing for the existing page elements.
-  - Acceptance: WHEN a visitor views the page on a viewport between 320px and 1920px wide THEN the styled layout SHALL remain readable without horizontal scrolling or clipped content.
+- [ ] 1.2 Create or update the page stylesheet using CSS3 with a system font stack, readable font sizes, sufficient line height, high-contrast foreground and background colors, and consistent spacing.
+  - Acceptance: WHEN the page is viewed on a narrow mobile viewport THEN the styled layout SHALL remain usable without horizontal scrolling or clipped text.
   - _Requirements: 1_
-- [ ] 1.3 Style the existing Hello World message with clear hierarchy, centered presentation, responsive typography, and a constrained content width.
-  - Acceptance: WHEN the page is viewed against its background THEN the text SHALL have sufficient contrast for standard readability.
+- [ ] 1.3 Style the page container to center the message within the viewport while allowing comfortable horizontal padding and responsive behavior on narrow screens.
+  - Acceptance: WHEN the page is viewed on a wide desktop viewport THEN the Hello World message SHALL remain visually centered within a balanced page layout.
   - _Requirements: 1_
-- [ ] 1.4 Add responsive rules so the layout remains readable and unclipped on small screens and does not become excessively wide on large screens.
-  - Acceptance: WHEN the page is loaded in a browser with JavaScript disabled THEN the styling SHALL still be applied and the existing Hello World message SHALL remain usable.
+- [ ] 1.4 Add visible keyboard focus styling for any existing interactive elements without introducing new controls or JavaScript behavior.
+  - Acceptance: WHEN an existing interactive element receives keyboard focus THEN it SHALL display a visible focus indicator.
   - _Requirements: 1_
-- [ ] 1.5 Verify the rendered page in a desktop and mobile viewport, checking readability, spacing, contrast, and absence of horizontal scrolling.
-  - Acceptance: WHEN the stylesheet is inspected THEN it SHALL contain presentation rules only and SHALL NOT add new page content, endpoints, data schemas, or application behavior.
+- [ ] 1.5 Link the stylesheet from the existing HTML page if it is not already linked, then verify the rendered page at desktop and mobile viewport widths.
+  - Acceptance: WHEN the stylesheet is loaded from the GitHub Pages deployment THEN the page SHALL apply the intended styles without requiring JavaScript.
   - _Requirements: 1_
 
 ## Definition of done

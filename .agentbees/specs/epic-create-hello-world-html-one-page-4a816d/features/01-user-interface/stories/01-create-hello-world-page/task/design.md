@@ -2,7 +2,7 @@
 
 ## Overview
 
-Technical design for 'Implement Create Hello World page'. Build a single static HTML5 entry page at index.html for GitHub Pages. Include a semantic document structure with a main content area and one visible Hello World message. Use a small, locally defined CSS3 stylesheet or style block for readable presentation without introducing external dependencies. Do not add application routes, backend endpoints, data schemas, or interactive behavior because this story only requires displaying static content.
+Technical design for 'Implement Create Hello World page'. Create a static GitHub Pages-compatible HTML5 entry page at index.html. Include a semantic document structure with a main content region containing the exact visible message "Hello World". Use a linked CSS3 stylesheet for minimal readable presentation and include JavaScript only if needed for page initialization; no backend, API endpoints, data schema, routing, or external dependencies are required. Keep the implementation limited to rendering the requested one-page content.
 
 ## Architecture
 
@@ -15,7 +15,7 @@ Request
 ## Components
 
 ### Implement Create Hello World page
-- Responsibility: Build a single static HTML5 entry page at index.html for GitHub Pages. Include a semantic document structure with a main content area and one visible Hello World message. Use a small, locally defined CSS3 stylesheet or style block for readable presentation without introducing external dependencies. Do not add application routes, backend endpoints, data schemas, or interactive behavior because this story only requires displaying static content.
+- Responsibility: Create a static GitHub Pages-compatible HTML5 entry page at index.html. Include a semantic document structure with a main content region containing the exact visible message "Hello World". Use a linked CSS3 stylesheet for minimal readable presentation and include JavaScript only if needed for page initialization; no backend, API endpoints, data schema, routing, or external dependencies are required. Keep the implementation limited to rendering the requested one-page content.
 - Driven by: user_interaction
 
 ## Data flow

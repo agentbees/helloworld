@@ -5,20 +5,17 @@ Implementation checklist for **Implement Create Hello World page**. Each numbere
 - [ ] 1. Implement Create Hello World page
   - _Story:_ As a visitor, I want to open a one-page HTML app displaying a Hello World message, so that I can immediately see the intended content.
 
-- [ ] 1.1 Create index.html with HTML5 doctype, language metadata, charset, viewport metadata, and a descriptive title.
-  - Acceptance: WHEN a visitor opens the deployed page THEN the page SHALL display a visible "Hello World" message.
+- [ ] 1.1 Create index.html with HTML5 doctype, language metadata, viewport metadata, a page title, and a semantic main element.
+  - Acceptance: WHEN a visitor opens the application entry URL THEN the page SHALL load as a single static HTML page without requiring a server-side runtime.
   - _Requirements: 1_
-- [ ] 1.2 Add a semantic main element containing the visible text "Hello World" as the page's primary heading.
-  - Acceptance: WHEN a visitor opens index.html in a modern browser THEN the document SHALL render as a single page without requiring a build step or server-side processing.
+- [ ] 1.2 Add a visible heading or primary text element containing the exact message "Hello World".
+  - Acceptance: WHEN the page finishes loading THEN the visitor SHALL see the exact visible text "Hello World" in the main content area.
   - _Requirements: 1_
-- [ ] 1.3 Apply minimal CSS3 styling to ensure the message is readable and appropriately positioned across common viewport sizes.
-  - Acceptance: WHEN the page is viewed on desktop or mobile-sized viewports THEN the Hello World message SHALL remain readable without horizontal scrolling.
+- [ ] 1.3 Create and link a CSS3 stylesheet that provides a clear, readable layout for the Hello World message without introducing additional application sections or features.
+  - Acceptance: WHEN the page is opened in a modern browser THEN the document SHALL use valid HTML5 structure and SHALL present the message in a readable layout.
   - _Requirements: 1_
-- [ ] 1.4 Open the page locally and verify that it renders without console errors, external runtime dependencies, or missing resources.
-  - Acceptance: WHEN the page loads THEN it SHALL use only the approved HTML5, CSS3, and JavaScript stack and SHALL not require external runtime dependencies.
-  - _Requirements: 1_
-- [ ] 1.5 Verify the static page structure is compatible with deployment from the repository root on GitHub Pages.
-  - Acceptance: WHEN the page is inspected for accessibility basics THEN it SHALL contain a declared document language, a descriptive title, and a primary heading for the Hello World message.
+- [ ] 1.4 Verify the page loads directly from index.html and renders correctly as a static site suitable for GitHub Pages.
+  - Acceptance: WHEN the page is published through GitHub Pages THEN the entry page SHALL render without external build steps or unavailable runtime dependencies.
   - _Requirements: 1_
 
 ## Definition of done

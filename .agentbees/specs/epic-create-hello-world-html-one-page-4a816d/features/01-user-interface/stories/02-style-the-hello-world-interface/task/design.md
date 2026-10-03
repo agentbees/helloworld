@@ -2,7 +2,7 @@
 
 ## Overview
 
-Technical design for 'Implement Style the Hello World interface'. Apply presentation-only styling to the existing Hello World page using a dedicated CSS3 stylesheet linked from the page. Use a simple centered layout, readable system font stack, appropriate spacing, accessible color contrast, and responsive sizing for narrow and wide viewports. Do not add or modify page content, application behavior, endpoints, data schemas, or JavaScript.
+Technical design for 'Implement Style the Hello World interface'. Add a focused CSS stylesheet for the existing Hello World page without changing its content or adding application behavior. Use HTML5-compatible selectors and CSS3 features to provide readable typography, clear contrast, balanced spacing, a centered layout, and responsive sizing suitable for GitHub Pages. Preserve the existing semantic structure and keep styling changes limited to the page shell and Hello World message.
 
 ## Architecture
 
@@ -15,7 +15,7 @@ Request
 ## Components
 
 ### Implement Style the Hello World interface
-- Responsibility: Apply presentation-only styling to the existing Hello World page using a dedicated CSS3 stylesheet linked from the page. Use a simple centered layout, readable system font stack, appropriate spacing, accessible color contrast, and responsive sizing for narrow and wide viewports. Do not add or modify page content, application behavior, endpoints, data schemas, or JavaScript.
+- Responsibility: Add a focused CSS stylesheet for the existing Hello World page without changing its content or adding application behavior. Use HTML5-compatible selectors and CSS3 features to provide readable typography, clear contrast, balanced spacing, a centered layout, and responsive sizing suitable for GitHub Pages. Preserve the existing semantic structure and keep styling changes limited to the page shell and Hello World message.
 - Driven by: user_interaction
 
 ## Data flow
