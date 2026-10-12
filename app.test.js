@@ -12,7 +12,10 @@ test('serves a static Hello World page at the root URL', async () => {
 
     assert.equal(response.status, 200);
     assert.match(response.headers.get('content-type'), /^text\/html/);
+    assert.match(body, /<meta name="viewport" content="width=device-width, initial-scale=1">/);
     assert.match(body, /<main>[\s\S]*<h1>Hello World<\/h1>[\s\S]*<\/main>/);
+    assert.match(body, /main\s*\{[\s\S]*width: min\(100%, 42rem\)/);
+    assert.doesNotMatch(body, /<script\b/);
   } finally {
     await new Promise((resolve, reject) => server.close((error) => error ? reject(error) : resolve()));
   }
