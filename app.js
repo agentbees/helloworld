@@ -8,8 +8,8 @@ const helloWorldPage = `<!doctype html>
     <title>Hello World</title>
     <style>
       :root { color: #172033; background: #f4f7fb; font-family: system-ui, sans-serif; }
-      body { min-height: 100vh; margin: 0; display: grid; place-items: center; }
-      main { padding: 2rem; text-align: center; }
+      body { min-height: 100vh; margin: 0; padding: 1rem; box-sizing: border-box; display: grid; place-items: center; }
+      main { width: min(100%, 60rem); padding: 2rem; box-sizing: border-box; text-align: center; }
       h1 { margin: 0; font-size: clamp(2.5rem, 10vw, 5rem); line-height: 1.1; }
     </style>
   </head>
