@@ -4,8 +4,13 @@
   "description": "A tiny hello-world service for AgentBees demos.",
   "main": "app.js",
   "scripts": {
+    "build": "vite build",
+    "dev": "vite",
     "start": "node app.js",
     "test": "node --test"
+  },
+  "devDependencies": {
+    "vite": "^6.1.0"
   },
   "license": "MIT"
 }
