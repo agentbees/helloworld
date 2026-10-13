@@ -1,15 +1,31 @@
 const http = require('node:http');
-const { greet } = require('./greet');
+const fs = require('node:fs');
+const path = require('node:path');
 
-// A minimal HTTP server. GET / greets you (optionally ?name=Bea).
+const publicDir = __dirname;
+
+function serveFile(res, filename, contentType) {
+  try {
+    const content = fs.readFileSync(path.join(publicDir, filename));
+    res.writeHead(200, { 'content-type': contentType });
+    res.end(content);
+  } catch {
+    res.writeHead(500, { 'content-type': 'text/plain; charset=utf-8' });
+    res.end('Unable to load the application.');
+  }
+}
+
 const server = http.createServer((req, res) => {
   const url = new URL(req.url, 'http://localhost');
   if (req.method === 'GET' && url.pathname === '/') {
-    res.writeHead(200, { 'content-type': 'text/plain' });
-    res.end(greet(url.searchParams.get('name')));
+    serveFile(res, 'index.html', 'text/html; charset=utf-8');
     return;
   }
-  res.writeHead(404, { 'content-type': 'text/plain' });
+  if (req.method === 'GET' && url.pathname === '/style.css') {
+    serveFile(res, 'style.css', 'text/css; charset=utf-8');
+    return;
+  }
+  res.writeHead(404, { 'content-type': 'text/plain; charset=utf-8' });
   res.end('not found');
 });
 
