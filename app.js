@@ -1,24 +1,21 @@
 const http = require('node:http');
-const crypto = require('node:crypto');
 const { greet } = require('./greet');
+const { handleLogin, loginPage } = require('./src/lib/auth/login-http');
+const { verifySession } = require('./src/lib/auth/login');
 
-const sessions = new Set();
-const loginUsername = process.env.LOGIN_USERNAME || 'user';
-const loginPassword = process.env.LOGIN_PASSWORD || 'password';
+let prisma;
+function getPrisma() {
+  if (!process.env.DATABASE_URL) return null;
+  if (!prisma) {
+    try { prisma = new (require('@prisma/client').PrismaClient)(); } catch (_) { return null; }
+  }
+  return prisma;
+}
 
 function page(title, body) {
   return `<!doctype html>
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
 <title>${title}</title></head><body>${body}</body></html>`;
-}
-
-function loginPage(message = '') {
-  const feedback = message ? `<p role="alert">${message}</p>` : '';
-  return page('Login', `<main><h1>Login</h1>${feedback}
-<form method="post" action="/login">
-<label for="username">Username</label><input id="username" name="username" type="text" required autocomplete="username">
-<label for="password">Password</label><input id="password" name="password" type="password" required autocomplete="current-password">
-<button type="submit">Log in</button></form></main>`);
 }
 
 function sendHtml(res, status, html, headers = {}) {
@@ -27,8 +24,8 @@ function sendHtml(res, status, html, headers = {}) {
 }
 
 function sessionFrom(req) {
-  const match = /(?:^|;)\s*session=([^;]+)/.exec(req.headers.cookie || '');
-  return match && sessions.has(match[1]) ? match[1] : null;
+  const match = /(?:^|;)\s*authjs\.session-token=([^;]+)/.exec(req.headers.cookie || '');
+  try { return match && verifySession(match[1]); } catch (_) { return false; }
 }
 
 function readBody(req) {
@@ -36,7 +33,7 @@ function readBody(req) {
     let body = '';
     req.setEncoding('utf8');
     req.on('data', chunk => { body += chunk; if (body.length > 10_000) req.destroy(); });
-    req.on('end', () => resolve(new URLSearchParams(body)));
+    req.on('end', () => resolve(Object.fromEntries(new URLSearchParams(body))));
     req.on('error', reject);
   });
 }
@@ -50,22 +47,8 @@ const server = http.createServer((req, res) => {
   }
 
   if (req.method === 'POST' && url.pathname === '/login') {
-    readBody(req).then(form => {
-      const username = (form.get('username') || '').trim();
-      const password = form.get('password') || '';
-      if (!username || !password) {
-        sendHtml(res, 400, loginPage('Username and password are required.'));
-        return;
-      }
-      if (username !== loginUsername || password !== loginPassword) {
-        sendHtml(res, 401, loginPage('Invalid username or password.'));
-        return;
-      }
-      const token = crypto.randomBytes(24).toString('hex');
-      sessions.add(token);
-      res.writeHead(302, { location: '/hello', 'set-cookie': `session=${token}; HttpOnly; Path=/; SameSite=Lax` });
-      res.end();
-    }).catch(() => sendHtml(res, 400, loginPage('Unable to process the login request.')));
+    readBody(req).then(form => handleLogin(req, res, getPrisma(), form))
+      .catch(() => sendHtml(res, 400, loginPage('Unable to process the login request.')));
     return;
   }
 
