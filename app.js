@@ -14,6 +14,11 @@ const server = http.createServer((req, res) => {
     res.end(fs.readFileSync(path.join(__dirname, 'style.css')));
     return;
   }
+  if (req.method === 'GET' && url.pathname === '/favicon.ico') {
+    res.writeHead(200, { 'content-type': 'image/svg+xml' });
+    res.end('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><text y="14" font-size="14">H</text></svg>');
+    return;
+  }
   res.writeHead(404, { 'content-type': 'text/plain' });
   res.end('not found');
 });
