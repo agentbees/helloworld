@@ -2,7 +2,7 @@
 
 ## Overview
 
-Technical design for 'Implement Display Hello World screen'. Use the existing Vite HTML, CSS, and JavaScript entry points. Render a single static Hello World message in the application root when the page loads, with minimal CSS for readable default presentation. No API endpoints, data models, user input, persistence, or external dependencies are required.
+Technical design for 'Implement Display Hello World screen'. Use the existing Vite entry point to render a static Hello World screen for the default application route. Add a semantic main container with a visible heading containing exactly “Hello World”. Use minimal CSS for readable spacing and typography without introducing additional screens, interactions, or dependencies. No API endpoints, data schema, user input, or persistent storage are required.
 
 ## Architecture
 
@@ -15,7 +15,7 @@ Request
 ## Components
 
 ### Implement Display Hello World screen
-- Responsibility: Use the existing Vite HTML, CSS, and JavaScript entry points. Render a single static Hello World message in the application root when the page loads, with minimal CSS for readable default presentation. No API endpoints, data models, user input, persistence, or external dependencies are required.
+- Responsibility: Use the existing Vite entry point to render a static Hello World screen for the default application route. Add a semantic main container with a visible heading containing exactly “Hello World”. Use minimal CSS for readable spacing and typography without introducing additional screens, interactions, or dependencies. No API endpoints, data schema, user input, or persistent storage are required.
 - Driven by: user_interaction
 
 ## Data flow
