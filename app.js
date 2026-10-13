@@ -1,15 +1,30 @@
 const http = require('node:http');
+const fs = require('node:fs');
+const path = require('node:path');
 const { greet } = require('./greet');
 
-// A minimal HTTP server. GET / greets you (optionally ?name=Bea).
+const index = fs.readFileSync(path.join(__dirname, 'index.html'));
+const stylesheet = fs.readFileSync(path.join(__dirname, 'style.css'));
+
+// A minimal HTTP server that serves the Hello World interface.
 const server = http.createServer((req, res) => {
   const url = new URL(req.url, 'http://localhost');
   if (req.method === 'GET' && url.pathname === '/') {
-    res.writeHead(200, { 'content-type': 'text/plain' });
-    res.end(greet(url.searchParams.get('name')));
+    if (url.searchParams.has('name')) {
+      res.writeHead(200, { 'content-type': 'text/plain; charset=utf-8' });
+      res.end(greet(url.searchParams.get('name')));
+    } else {
+      res.writeHead(200, { 'content-type': 'text/html; charset=utf-8' });
+      res.end(index);
+    }
     return;
   }
-  res.writeHead(404, { 'content-type': 'text/plain' });
+  if (req.method === 'GET' && url.pathname === '/style.css') {
+    res.writeHead(200, { 'content-type': 'text/css; charset=utf-8' });
+    res.end(stylesheet);
+    return;
+  }
+  res.writeHead(404, { 'content-type': 'text/plain; charset=utf-8' });
   res.end('not found');
 });
 
