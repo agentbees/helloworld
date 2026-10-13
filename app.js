@@ -1,12 +1,17 @@
 const http = require('node:http');
-const { greet } = require('./greet');
+const fs = require('node:fs');
+const path = require('node:path');
 
-// A minimal HTTP server. GET / greets you (optionally ?name=Bea).
 const server = http.createServer((req, res) => {
   const url = new URL(req.url, 'http://localhost');
   if (req.method === 'GET' && url.pathname === '/') {
-    res.writeHead(200, { 'content-type': 'text/plain' });
-    res.end(greet(url.searchParams.get('name')));
+    res.writeHead(200, { 'content-type': 'text/html; charset=utf-8' });
+    res.end(fs.readFileSync(path.join(__dirname, 'index.html')));
+    return;
+  }
+  if (req.method === 'GET' && url.pathname === '/style.css') {
+    res.writeHead(200, { 'content-type': 'text/css; charset=utf-8' });
+    res.end(fs.readFileSync(path.join(__dirname, 'style.css')));
     return;
   }
   res.writeHead(404, { 'content-type': 'text/plain' });
