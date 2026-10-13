@@ -1,10 +1,16 @@
 const http = require('node:http');
 const fs = require('node:fs');
 const path = require('node:path');
+const { greet } = require('./greet');
 
 const server = http.createServer((req, res) => {
   const url = new URL(req.url, 'http://localhost');
   if (req.method === 'GET' && url.pathname === '/') {
+    if (url.searchParams.has('name')) {
+      res.writeHead(200, { 'content-type': 'text/plain; charset=utf-8' });
+      res.end(greet(url.searchParams.get('name')));
+      return;
+    }
     res.writeHead(200, { 'content-type': 'text/html; charset=utf-8' });
     res.end(fs.readFileSync(path.join(__dirname, 'index.html')));
     return;
