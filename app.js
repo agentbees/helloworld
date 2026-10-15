@@ -1,12 +1,31 @@
 const http = require('node:http');
-const { greet } = require('./greet');
 
-// A minimal HTTP server. GET / greets you (optionally ?name=Bea).
+const helloWorldPage = `<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Hello World</title>
+    <style>
+      :root { color: #172033; background: #f4f7fb; font-family: system-ui, sans-serif; }
+      body { min-height: 100vh; margin: 0; padding: 1rem; box-sizing: border-box; display: grid; place-items: center; }
+      main { width: min(100%, 60rem); padding: 2rem; box-sizing: border-box; text-align: center; }
+      h1 { margin: 0; font-size: clamp(2.5rem, 10vw, 5rem); line-height: 1.1; }
+    </style>
+  </head>
+  <body>
+    <main>
+      <h1>Hello World</h1>
+    </main>
+  </body>
+</html>`;
+
+// A minimal HTTP server that displays the Hello World screen.
 const server = http.createServer((req, res) => {
   const url = new URL(req.url, 'http://localhost');
   if (req.method === 'GET' && url.pathname === '/') {
-    res.writeHead(200, { 'content-type': 'text/plain' });
-    res.end(greet(url.searchParams.get('name')));
+    res.writeHead(200, { 'content-type': 'text/html; charset=utf-8' });
+    res.end(helloWorldPage);
     return;
   }
   res.writeHead(404, { 'content-type': 'text/plain' });
