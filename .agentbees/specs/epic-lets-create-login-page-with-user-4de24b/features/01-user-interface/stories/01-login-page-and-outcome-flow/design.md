@@ -1,0 +1,30 @@
+# Design — Lets create login page with user name and
+
+## Overview
+
+Domain design for the 'Login page and outcome flow' story. Describes the flow and its behavior at the business level.
+
+## Architecture
+
+```
+User
+  -> Login page and outcome flow
+```
+
+## Components
+
+### Login page and outcome flow
+- Responsibility: As a user, I want to enter my username and password on a login page, so that I can sign in and receive clear feedback about the result.
+- Driven by: user_interaction
+
+## Data flow
+
+The 'login page and outcome flow' flow is exercised by the user; inputs are validated and outcomes recorded.
+
+## Error handling
+
+Invalid input and failure cases are surfaced with clear, non-sensitive messages.
+
+## Testing strategy
+
+Validated end to end against the story's acceptance criteria.
