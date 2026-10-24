@@ -1,39 +1,12 @@
-const test = require('node:test');
-const assert = require('node:assert');
-const http = require('node:http');
-const server = require('./app');
+const request = require('supertest');
+const app = require('./app');
 
-test('GET /health returns an unauthenticated JSON health response', async () => {
-  await new Promise((resolve, reject) => {
-    server.listen(0, resolve);
-    server.once('error', reject);
+describe('GET /health', () => {
+  test('returns an unauthenticated JSON health response', async () => {
+    const response = await request(app).get('/health');
+
+    expect(response.status).toBe(200);
+    expect(response.body).toEqual({ status: 'ok' });
+    expect(response.headers['content-type']).toMatch(/^application\/json(?:;|$)/);
   });
-
-  try {
-    const response = await new Promise((resolve, reject) => {
-      const request = http.get({
-        port: server.address().port,
-        path: '/health',
-      }, (res) => {
-        let body = '';
-        res.setEncoding('utf8');
-        res.on('data', (chunk) => { body += chunk; });
-        res.on('end', () => resolve({
-          statusCode: res.statusCode,
-          contentType: res.headers['content-type'],
-          body,
-        }));
-      });
-      request.on('error', reject);
-    });
-
-    assert.strictEqual(response.statusCode, 200);
-    assert.strictEqual(response.body, '{"status":"ok"}');
-    assert.match(response.contentType, /^application\/json(?:;|$)/);
-  } finally {
-    await new Promise((resolve, reject) => server.close((error) => {
-      if (error) reject(error);
-      else resolve();
-    }));
-  }
 });
