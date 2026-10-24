@@ -1,0 +1,23 @@
+openapi: 3.0.3
+info:
+  title: Helloworld API
+  version: 1.0.0
+paths:
+  /health:
+    get:
+      summary: Check service health
+      security: []
+      responses:
+        '200':
+          description: Service is healthy
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - status
+                properties:
+                  status:
+                    type: string
+                    enum:
+                      - ok
