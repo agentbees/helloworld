@@ -1,21 +1,25 @@
-const http = require('node:http');
+const express = require('express');
 const { greet } = require('./greet');
 
-// A minimal HTTP server. GET / greets you (optionally ?name=Bea).
-const server = http.createServer((req, res) => {
-  const url = new URL(req.url, 'http://localhost');
-  if (req.method === 'GET' && url.pathname === '/') {
-    res.writeHead(200, { 'content-type': 'text/plain' });
-    res.end(greet(url.searchParams.get('name')));
-    return;
-  }
-  res.writeHead(404, { 'content-type': 'text/plain' });
-  res.end('not found');
+const app = express();
+
+// Public health check for uptime monitoring.
+app.get('/health', (req, res) => {
+  res.status(200).json({ status: 'ok' });
+});
+
+// A minimal greeting endpoint (optionally ?name=Bea).
+app.get('/', (req, res) => {
+  res.type('text').send(greet(req.query.name));
+});
+
+app.use((req, res) => {
+  res.status(404).type('text').send('not found');
 });
 
 const port = process.env.PORT || 3000;
 if (require.main === module) {
-  server.listen(port, () => console.log(`helloworld listening on :${port}`));
+  app.listen(port, () => console.log(`helloworld listening on :${port}`));
 }
 
-module.exports = server;
+module.exports = app;
